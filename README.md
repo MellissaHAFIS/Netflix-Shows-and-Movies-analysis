@@ -1,58 +1,111 @@
-To conduct a thorough analysis of Netflix's dataset and extract meaningful insights for the business problem, here are some recommended queries and directions for exploration:
+# Netflix Data Analysis Project
+![5 Netflix Shows For A Good Scare](https://github.com/user-attachments/assets/f4782d75-bd66-4266-ac88-a80570948251)
 
-### 1. **Content Performance Analysis**
-   - **Top and Bottom Rated Titles**: Find the highest and lowest-rated titles on IMDb and TMDB. This can reveal content quality trends and help Netflix understand what types of shows/movies are well-received.
-   - **Popularity vs. Ratings**: Analyze if there’s a correlation between a title’s popularity (`tmdb_popularity`) and its rating (`imdb_score`). This can help understand if highly-rated shows are also popular, or if popularity is independent of quality.
+## Project Overview
 
-### 2. **Genre and Category Preferences**
-   - **Most Popular Genres**: Identify which genres appear most frequently. You could break this down by `show_type` (TV show vs. movie) and by `release_year` to see if preferences change over time.
-   - **Top-Rated Genres**: Determine which genres have the highest average IMDb score, which can give insights into the quality associated with each genre.
-   - **Trending Genres Over Time**: Track the popularity of genres by year to see how trends evolve. For instance, you might find that certain genres are becoming more popular or less popular over time.
+This project involves analyzing Netflix’s extensive dataset of TV shows and movies to gain insights into various aspects such as content performance, genre preferences, regional content distribution, and popular actors and directors. The dataset consists of two files, one containing show titles and another listing the cast, with over 5,000 titles and 77,000 credits of actors and directors. The analysis covers SQL-based data extraction and data visualization for actionable insights.
 
-### 3. **Regional Analysis**
-   - **Content by Country**: Count the number of titles produced by each country to understand where Netflix’s content is primarily coming from.
-   - **Top-Rated Content by Country**: Look at IMDb scores for titles from different countries to identify if some regions produce higher-rated content on average.
-   - **Popular Countries over Time**: Analyze if the content popularity by country has shifted over the years.
+## Objective
 
-### 4. **Age and Certification Analysis**
-   - **Content Distribution by Age Rating**: Determine the number of titles per age certification to understand the distribution of content for different age groups.
-   - **Ratings by Age Certification**: Compare the IMDb scores across different age certifications to see if titles with certain ratings (e.g., PG-13 vs. R) tend to have higher or lower ratings.
+To help Netflix gather valuable insights from its extensive dataset, enabling them to better understand and cater to user preferences.
 
-### 5. **Actor and Director Analysis (Using Credits Table)**
-   - **Most Frequent Actors and Directors**: Identify actors or directors who appear most often in Netflix titles. This can help highlight popular industry figures.
-   - **Top-Rated Actors and Directors**: Analyze IMDb scores for titles featuring specific actors or directors, providing insight into who’s associated with higher-rated content.
-   - **Genre-Specific Actors/Directors**: Identify actors or directors frequently associated with specific genres.
+## Tools and Technologies Used
 
-### 6. **Yearly Trends**
-   - **Content Released Per Year**: Track the number of titles released each year to observe any growth in Netflix’s catalog.
-   - **Genre Popularity by Year**: See if certain genres gained or lost popularity over time, which could reveal changing viewer preferences.
+- **Python**: For data cleaning and preparation.
+- **MySQL**: For storing the cleaned dataset, modeling tables, and running analytical queries.
+- **Data Visualization Tool**: For final analysis and presentation: Tableau.
 
-### 7. **Correlation and Aggregated Insights**
-   - **Correlations Between Scores and Popularity**: Perform correlation analyses between `imdb_score`, `tmdb_score`, and `tmdb_popularity` to understand if these factors are aligned.
-   - **Aggregated Score Insights**: Create summary statistics, like average `imdb_score` or `tmdb_popularity`, for each genre, country, and age certification.
+## Project Structure
 
-Each of these analyses would provide Netflix with insights into content trends, quality, and popularity across different dimensions, helping them make data-driven decisions about their catalog.
+- `data/`: Contains the raw data files (`titles.csv` and `credits.csv`).
+- `notebooks/`: Python notebooks for data cleaning and preparation.
+- `scripts/`: SQL scripts used for data modeling and queries, Python file for cleaning the original dataset.
+- `README.md`: Project documentation.
+- `images/`: Folder for images.
+
+---
+
+## Data Cleaning and Preparation
+
+Data cleaning was performed using a Python notebook, which includes explicit steps for handling missing values, restructuring columns, and transforming data. Key steps in this stage:
+
+1. **Handling Missing Values**: Used appropriate methods to fill missing data based on the type of attribute.
+2. **Splitting Lists**: Converted list-type columns, like genres, into separate tables to normalize the data structure.
+3. **Data Transformation**: Converted data types, handled null values, and ensured consistency.
+
+---
+
+## Database Modeling
+
+The following tables were created as CSV files at the first (also in the data cleaning process) time to have a structured data storage and optimized querying then in SQL: 
+
+- **Title**: Contains information on each Netflix title, such as name, type, description, release year, runtime, genres, IMDb and TMDb ratings.
+- **Genre**: A separate table to store each unique genre, normalized for querying.
+- **Credit**: Stores cast and crew information, including actor and director details.
+- **Country**: A separate table to store each unique counrty code, normalized for querying.
+- **TitleHasGenre**: The relationship between Title and Genre.
+- **TitleHasCountry**: The relationship between Title and Country.
+  
+---
+
+## Analytical SQL Queries
+
+Here’s **an overview** of the SQL queries and the insights they aimed to uncover.
+
+### 1. Content Performance Analysis
+   - **Highest/Lowest Rated Titles**: Retrieved the 10 highest and 10 lowest-rated shows and movies on IMDb and TMDb.
+   - **Average Scores by Type**: Calculated average IMDb and TMDb scores, broken down by TV show and movie.
+
+### 2. Genre and Category Preferences
+   - **Most Popular Genres**: Identified which genres appear most frequently, segmented by show type and release year.
+   - **Top-Rated Genres**: Determined genres with the highest average IMDb score and TMDb popularity score.
+   - **Genre Trends Over Time**: Tracked changes in genre popularity over the years.
+
+### 3. Regional Analysis
+   - **Content by Country**: Counted titles by production country to understand Netflix’s content sourcing.
+   - **Average Scores by Country**: Found average IMDb and TMDb scores per country.
+
+### 4. Age and Certification Analysis
+   - **Scores by Age Certification**: Analyzed average IMDb and TMDb scores for each age certification, segmented by show type.
+   - **Most Common Age Certifications**: Identified the five most frequent age certifications for movies.
+
+### 5. Actor and Director Analysis
+   - **Top Titles by Directors**: Listed titles and directors with high IMDb scores and TMDb popularity.
+   - **Frequent Actors/Directors**: Found the most common actors and directors in Netflix titles.
+   - **Actors with Consistent Roles**: Identified actors who played the same character in multiple shows or movies.
+
+### 6. Yearly Trends
+   - **Content Release Trends**: Counted titles released each year to observe catalog growth.
+   - **Genre Popularity by Year**: Monitored genre popularity changes over time.
+
+### 7. Runtime and Season Analysis
+   - **Average Runtime**: Calculated the average runtime for movies and TV shows separately.
+   - **Shows with Most Seasons**: Identified shows with the highest number of seasons.
+
+---
+
+## Data Visualization
+
+The next step involves visualizing the findings to make the analysis more accessible and interpretable.
+
+1. **Set up Tableau**: Connect Power Tableau to the MySQL database.
+2. **Load Queries**: Load SQL queries into Tableau to create interactive dashboard.
+3. **Key Visualizations**.
+
+   ![Netflix shows and movies analysis](https://github.com/user-attachments/assets/9f45df15-52a9-49c6-a0a2-4fa8463dea87)
 
 
-1. What were the top 10 movies according to IMDB score?
-2. What were the top 10 shows according to IMDB score? 
-3. What were the bottom 10 movies according to IMDB score? 
-4. What were the bottom 10 shows according to IMDB score? 
-5. What were the average IMDB and TMDB scores for shows and movies? 
-6. Count of movies and shows in each decade
-7. What were the average IMDB and TMDB scores for each production country?
-8. What were the average IMDB and TMDB scores for each age certification for shows and movies?
-9. What were the 5 most common age certifications for movies?
-10. Who were the top 20 actors that appeared the most in movies/shows? 
-11. Who were the top 20 directors that directed the most movies/shows? 
-12. Calculating the average runtime of movies and TV shows separately
-13. Finding the titles and  directors of movies released on or after 2010
-14. Which shows on Netflix have the most seasons?
-15. Which genres had the most movies? 
-16. Which genres had the most shows? 
-17. Titles and Directors of movies with high IMDB scores (>7.5) and high TMDB popularity scores (>80) 
-18. What were the total number of titles for each year? 
-19. Actors who have starred in the most highly rated movies or shows
-20. Which actors/actresses played the same character in multiple movies or TV shows? 
-21. What were the top 3 most common genres?
-22. Average IMDB score for leading actors/actresses in movies or shows 
+---
+
+## How to Reproduce This Project
+
+1. **Data Cleaning and Preparation**: Run the Python notebook in `notebooks/` for data preprocessing.
+2. **Database Setup**: Run the python script, provided in `scripts/` for cleaning the dataset and produce the CleanedDataSet ( or just clone the one above). Then use the provided SQL script in `scripts/` to create tables and import cleaned data into MySQL.
+3. **SQL Queries**: Run analytical queries provided in the `scripts/` folder to generate insights.
+4. **Visualization**: Use Tableau to load SQL results and create interactive visualizations.
+
+---
+
+## Conclusion
+
+This project provides a detailed analysis of Netflix’s TV shows and movies dataset, offering insights into performance trends, genre preferences, regional distributions, and more. By following the structured process outlined in this README, stakeholders can replicate the analysis and tailor it to specific business questions for informed decision-making.
