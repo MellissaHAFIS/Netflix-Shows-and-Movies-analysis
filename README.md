@@ -92,7 +92,8 @@ The next step involves visualizing the findings to make the analysis more access
 2. **Load Queries**: Load SQL queries into Tableau to create interactive dashboard.
 3. **Key Visualizations**.
 
-   ![Netflix shows and movies analysis](https://github.com/user-attachments/assets/9f45df15-52a9-49c6-a0a2-4fa8463dea87)
+![Netflix shows and movies analysis](https://github.com/user-attachments/assets/23549591-3411-4777-8b57-0e96f7ab7a6d)
+
 
 
 ---
